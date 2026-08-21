@@ -47,6 +47,11 @@ class grid_expander(base_expander):
         # self.succ_. If self.constraint_table_ is not None, skip successors that
         # violate a vertex or edge constraint at the relevant timestep.
         ################
+
+        for a in self.get_actions(current.state_):
+            new_state = self.__move(current.state_, a.move_)
+            self.succ_.append((new_state, a))
+        
         return self.succ_[:]
 
     # return a list with all the applicable/valid actions
@@ -64,6 +69,53 @@ class grid_expander(base_expander):
         # neighbouring tile append a grid_action with the matching Move_Actions
         # move_ and its cost_ (1 for cardinal moves, 1.41 for diagonals).
         ################
+
+        if (x < 0 or x >= int(self.domain_.height_) or y < 0 or y >= int(self.domain_.width_)):
+            return retval
+
+        if (self.domain_.get_tile(loc) == False):
+            return retval
+
+        if (self.domain_.get_tile((x, y-1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_LEFT
+            retval[-1].cost_ = 1;
+
+        if (self.domain_.get_tile((x, y+1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_RIGHT
+            retval[-1].cost_ = 1;
+
+        if (self.domain_.get_tile((x-1, y))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_UP
+            retval[-1].cost_ = 1;
+
+        if (self.domain_.get_tile((x+1, y))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_DOWN
+            retval[-1].cost_ = 1;
+
+        if (self.domain_.get_tile((x-1, y-1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_UP_LEFT
+            retval[-1].cost_ = 1.41;
+
+        if (self.domain_.get_tile((x-1, y+1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_UP_RIGHT
+            retval[-1].cost_ = 1.41;
+
+        if (self.domain_.get_tile((x+1, y+1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_DOWN_RIGHT
+            retval[-1].cost_ = 1.41;
+
+        if (self.domain_.get_tile((x+1, y-1))):
+            retval.append(grid_action())
+            retval[-1].move_ = Move_Actions.MOVE_DOWN_LEFT
+            retval[-1].cost_ = 1.41;
+        
         return retval
 
     def __move(self, curr_state: tuple, move):
@@ -75,6 +127,31 @@ class grid_expander(base_expander):
         # Apply the movement offset for `move` (a Move_Actions value) to (x, y)
         # and return the resulting coordinates.
         ################
+        
+        x = curr_state[0]
+        y = curr_state[1]
+
+        if move == Move_Actions.MOVE_UP:
+            x -= 1
+        elif move == Move_Actions.MOVE_DOWN:
+            x += 1
+        elif move == Move_Actions.MOVE_LEFT:
+            y -= 1
+        elif move == Move_Actions.MOVE_RIGHT:
+            y += 1
+        elif move == Move_Actions.MOVE_UP_LEFT:
+            x -= 1
+            y -= 1
+        elif move == Move_Actions.MOVE_UP_RIGHT:
+            x -= 1
+            y += 1
+        elif move == Move_Actions.MOVE_DOWN_RIGHT:
+            x += 1
+            y += 1
+        elif move == Move_Actions.MOVE_DOWN_LEFT:
+            x += 1
+            y -= 1
+
         return x, y
 
     def __str__(self):

@@ -1,0 +1,7 @@
+"Framework","Strategy","Status","Cost","Depth","Nodes(exp)","Nodes(gen)","Runtime","start","goal","Problem","Solution"
+"tree","depth","Time out","None","None","1574770","5511709","30.2188","(124, 256)","(125, 258)","./example/gridmap/arena2.map","Hidden"
+"tree","depth","Time out","None","None","1558286","5454005","31.6406","(159, 99)","(162, 101)","./example/gridmap/arena2.map","Hidden"
+"tree","depth","Time out","None","None","1633452","5717085","30.0156","(130, 112)","(131, 109)","./example/gridmap/arena2.map","Hidden"
+"tree","depth","Time out","None","None","1610479","5636673","30.0156","(94, 101)","(93, 103)","./example/gridmap/arena2.map","Hidden"
+"tree","depth","Time out","None","None","1639748","5739117","30.0156","(58, 111)","(60, 110)","./example/gridmap/arena2.map","Hidden"
+"tree","depth","Time out","None","None","1574669","5511344","30.2656","(83, 93)","(80, 95)","./example/gridmap/arena2.map","Hidden"
