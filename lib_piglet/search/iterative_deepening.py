@@ -39,7 +39,7 @@ class iterative_deepening(base_search):
         start_node = self.generate(start_state, None, None)
 
         ## set initial depth limit here
-        cost_threshold = start_node.f
+        cost_threshold = start_node.f_
         depth_threshold = start_node.depth_
 
         # Keep search until reach timelimit.
